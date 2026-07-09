@@ -8,9 +8,13 @@ phases:
     commands:
       - echo "Running HTML Validation on index.html..."
       - htmlhint index.html
+      # CRITICAL FIX: Force Linux to make the scripts executable
+      - chmod +x scripts/cleanup.sh
+      - chmod +x scripts/reload_nginx.sh
 artifacts:
   files:
     - index.html
     - appspec.yml
-    - scripts/**/*
-    
+    # CRITICAL FIX: Explicitly list the files so CodeBuild cannot ignore them
+    - scripts/cleanup.sh
+    - scripts/reload_nginx.sh
